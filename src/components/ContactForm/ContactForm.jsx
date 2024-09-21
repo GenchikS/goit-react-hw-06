@@ -3,7 +3,8 @@ import { useId } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import css from "./contactform.module.css";
 import { useDispatch, useSelector } from "react-redux";
-import { addContact } from "../redux/store";
+import { addContact } from "../redux/contactsSlice";
+
 
 // const FeedbackSchema = Yup.object().shape({
 //   name: Yup.string()
@@ -23,16 +24,14 @@ export default function ContactForm() {
   //  віклик хука useDispatch для передачі деннмх в store
   const dispatch = useDispatch();
   //  підписка на стан  useSelector
-  const userContact = useSelector((state) => state.contacts.items);
+  const selectContact = useSelector((state) => state.contacts.items);
 
   const handleSubmit = (evn, actions) => {
     // console.log("submit.name", evn.name); //  перевірка значення name при submit
-    console.log("submit", evn); //  перевірка введених значень при submit
-
-    // const add = addContact(evn);  //  зайва змінна, можна відразу передати addContact(evn)
-    
-  actions.resetForm(); //  активація скидання форми
-    return dispatch(addContact(evn));
+    // console.log("submit", evn); //  перевірка введених значень при submit
+  
+    actions.resetForm(); //  активація скидання форми
+    return dispatch(addContact([...selectContact, evn]));
   };
 
   const nameId = useId();

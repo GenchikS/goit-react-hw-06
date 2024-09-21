@@ -1,10 +1,9 @@
 .container{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     list-style-type: none;
     margin: 0;
+    gap: 16px;
 }
 
-.listContactUser{
-    margin-left: 16px;
-}

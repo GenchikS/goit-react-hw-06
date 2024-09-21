@@ -1,36 +1,42 @@
 import { useDispatch, useSelector } from "react-redux";
 import Contact from "../ContactForm/Contact/Contact";
 import css from "./ContactList.module.css";
-import { deleteContact } from "../redux/store";
+import { deleteContact } from "../redux/contactsSlice";
+
 
 export default function ContactList() {
   const dispatch = useDispatch();
-  const userContact = useSelector((state) => state.contacts.items);
+  const selectContact = useSelector((state) => state.contacts.items);
   //  перевірка масиву стану
   // console.log("userContact", userContact);
 
   function onHandleDelete(evn) {
+    console.log("userContact", selectContact);
     //  перевірка введеного ID
-    // console.log("id", evn);
-    return dispatch(deleteContact(userContact.filter((contact) => contact.id !== evn)));
+    console.log("id", evn);
+    const deleteUser = selectContact.filter((contact) => contact.id !== evn);
+    console.log("deleteUser", deleteUser);
+    return dispatch(deleteContact(deleteUser));
    
   }
 
   return (
     <ul className={css.container}>
-      {userContact.map((contact) => (
-         contact.name.toLowerCase() &&
-        <li className={css.listContactUser} key={contact.id}>
-          {/* перевірка ітерації масиву */}
-          {/* {console.log("contact.name", contact)} */}
-          <Contact
-            name={contact.name}
-            number={contact.number}
-            id={contact.id}
-            onHandleDelete={onHandleDelete}
-          />
-        </li>
-      ))}
+      {selectContact.map(
+        (contact) =>
+          contact.name.toLowerCase() && (
+            <li className={css.listContactUser} key={contact.id}>
+              {/* перевірка ітерації масиву */}
+              {/* {console.log("contact.name", contact)} */}
+              <Contact
+                name={contact.name}
+                number={contact.number}
+                id={contact.id}
+                onHandleDelete={onHandleDelete}
+              />
+            </li>
+          )
+      )}
     </ul>
   );
 }
