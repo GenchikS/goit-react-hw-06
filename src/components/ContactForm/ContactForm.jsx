@@ -1,0 +1,64 @@
+import * as Yup from "yup";
+import { useId } from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import css from "./contactform.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { addContact } from "../redux/store";
+
+// const FeedbackSchema = Yup.object().shape({
+//   name: Yup.string()
+//     .min(3, "Занадто коротке ім'я!")
+//     .max(50, "Занадто довге ім'я!")
+//     .required("Required!"),
+//   number: Yup.number().min(4, "Занадто короткий номер!").required("Required!"),
+// });
+
+const initialValues = {
+  name: "",
+  number: "",
+  id: Date.now(),
+};
+
+export default function ContactForm() {
+  //  віклик хука useDispatch для передачі деннмх в store
+  const dispatch = useDispatch();
+  //  підписка на стан  useSelector
+  const userContact = useSelector((state) => state.contacts.items);
+
+  const handleSubmit = (evn, actions) => {
+    // console.log("submit.name", evn.name); //  перевірка значення name при submit
+    console.log("submit", evn); //  перевірка введених значень при submit
+
+    // const add = addContact(evn);  //  зайва змінна, можна відразу передати addContact(evn)
+    
+  actions.resetForm(); //  активація скидання форми
+    return dispatch(addContact(evn));
+  };
+
+  const nameId = useId();
+  const numberId = useId();
+
+  return (
+    <Formik
+      initialValues={initialValues}
+      onSubmit={handleSubmit}
+      // validationSchema={FeedbackSchema}
+    >
+      <Form className={css.containerForm}>
+        <label htmlFor={nameId}>Name</label>
+        <Field type="text" name="name" className={css.name} id={nameId} />
+        <ErrorMessage className={css.errorName} name="name" component="span" />
+        <label htmlFor={numberId}>Number</label>
+        <Field type="text" name="number" className={css.number} id={numberId} />
+        <ErrorMessage
+          className={css.errorNumber}
+          name="number"
+          component="span"
+        />
+        <button className={css.buttonAdd} type="submit">
+          Add contact
+        </button>
+      </Form>
+    </Formik>
+  );
+}
