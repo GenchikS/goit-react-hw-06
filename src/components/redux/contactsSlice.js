@@ -14,7 +14,7 @@ const initionState = {
 
 export const addContact = createAction(`contacts/addContact`);
 export const deleteContact = createAction("contacts/deleteContact");
-export const filters = createAction("filters/filters");
+export const selectContacts = createAction("filters/selectContacts");
 
 
 export const contactsRedus = (state = initionState.contacts, action) => {
@@ -27,7 +27,7 @@ export const contactsRedus = (state = initionState.contacts, action) => {
       return {
         items: action.payload,
       };
-    case "filters/filters":
+    case "filters/selectContacts":
       return {
         // contacts: {
         items: action.payload,

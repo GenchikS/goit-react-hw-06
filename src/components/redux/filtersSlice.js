@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-export const filtersName = createAction("filters/name");
+export const changeFilter = createAction("filters/name");
 
 export const filtersRedus = (state = { name: "" }, action) => {
   switch (action.type) {

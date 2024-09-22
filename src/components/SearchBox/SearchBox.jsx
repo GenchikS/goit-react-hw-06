@@ -1,17 +1,17 @@
-import { filters } from "../redux/contactsSlice";
-import { filtersName } from "../redux/filtersSlice";
+import { selectContacts } from "../redux/contactsSlice";
+import { changeFilter } from "../redux/filtersSlice";
 import css from "./SearchBox.module.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
 
-export default function SearchBox({ value }) {
+export default function SearchBox() {
     const selectContact = useSelector((state) => state.contacts.items);
     const dispatch = useDispatch();
 
     const handleChange = (evn) => {
       // console.log("evn", evn.target.value);
-      const searchUser = evn.target.value;
+      const selectNameFilter = evn.target.value;
       // console.log("userFilter", userFilter);
       const filtersAll = selectContact.filter((contact) =>
         contact.name
@@ -19,8 +19,8 @@ export default function SearchBox({ value }) {
           .includes(evn.target.value.toLowerCase().trim())
       );
       // console.log("filtersAll", filtersAll);
-      dispatch(filtersName(searchUser));
-      return dispatch(filters(filtersAll));
+      dispatch(changeFilter(selectNameFilter));
+      return dispatch(selectContacts(filtersAll));
   };
   
   return (
@@ -28,12 +28,10 @@ export default function SearchBox({ value }) {
       <p>Find contacts by name</p>
       <input
         type="text"
-        value={value}
+        // value={value}
         className={css.searchInput}
         onChange={handleChange}
       />
-      {/* перевірочна строчка введеного значення value */}
-      {/* <p>Input: {value}</p> */}
-    </div>
+     </div>
   );
 }
