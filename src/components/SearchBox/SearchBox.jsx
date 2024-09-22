@@ -14,7 +14,9 @@ export default function SearchBox({ value }) {
       const searchUser = evn.target.value;
       // console.log("userFilter", userFilter);
       const filtersAll = selectContact.filter((contact) =>
-      contact.name.toLowerCase().includes(evn.target.value.toLowerCase())
+        contact.name
+          .toLowerCase()
+          .includes(evn.target.value.toLowerCase().trim())
       );
       // console.log("filtersAll", filtersAll);
       dispatch(filtersName(searchUser));
