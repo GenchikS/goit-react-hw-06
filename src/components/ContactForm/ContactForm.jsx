@@ -6,13 +6,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addContact } from "../redux/contactsSlice";
 
 
-// const FeedbackSchema = Yup.object().shape({
-//   name: Yup.string()
-//     .min(3, "Занадто коротке ім'я!")
-//     .max(50, "Занадто довге ім'я!")
-//     .required("Required!"),
-//   number: Yup.number().min(4, "Занадто короткий номер!").required("Required!"),
-// });
+const FeedbackSchema = Yup.object().shape({
+  name: Yup.string()
+    .min(3, "Занадто коротке ім'я!")
+    .max(50, "Занадто довге ім'я!")
+    .required("Required!"),
+  number: Yup.number().min(4, "Занадто короткий номер!").required("Required!"),
+});
 
 const initialValues = {
   name: "",
@@ -29,9 +29,10 @@ export default function ContactForm() {
   const handleSubmit = (evn, actions) => {
     // console.log("submit.name", evn.name); //  перевірка значення name при submit
     // console.log("submit", evn); //  перевірка введених значень при submit
-  
+  const addContactUser = [...selectContact, evn];
     actions.resetForm(); //  активація скидання форми
-    return dispatch(addContact([...selectContact, evn]));
+    // console.log("addContactUser", addContactUser);
+    return dispatch(addContact(addContactUser));
   };
 
   const nameId = useId();
@@ -41,7 +42,7 @@ export default function ContactForm() {
     <Formik
       initialValues={initialValues}
       onSubmit={handleSubmit}
-      // validationSchema={FeedbackSchema}
+      validationSchema={FeedbackSchema}
     >
       <Form className={css.containerForm}>
         <label htmlFor={nameId}>Name</label>

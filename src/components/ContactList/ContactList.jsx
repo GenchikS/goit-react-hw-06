@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import Contact from "../ContactForm/Contact/Contact";
 import css from "./ContactList.module.css";
+// import { deleteContact } from "../redux/store";
 import { deleteContact } from "../redux/contactsSlice";
 
 
@@ -11,17 +12,18 @@ export default function ContactList() {
   // console.log("userContact", userContact);
 
   function onHandleDelete(evn) {
-    console.log("userContact", selectContact);
+    // console.log("userContact", selectContact);
     //  перевірка введеного ID
-    console.log("id", evn);
+    // console.log("id", evn);
     const deleteUser = selectContact.filter((contact) => contact.id !== evn);
-    console.log("deleteUser", deleteUser);
+    // console.log("deleteUser", deleteUser);
     return dispatch(deleteContact(deleteUser));
    
   }
 
   return (
     <ul className={css.container}>
+      {/* {console.log("selectContact", selectContact)} */}
       {selectContact.map(
         (contact) =>
           contact.name.toLowerCase() && (
