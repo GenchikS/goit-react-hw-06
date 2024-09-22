@@ -6,21 +6,25 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 export default function SearchBox() {
-    const selectContact = useSelector((state) => state.contacts.items);
+    const selectContact = useSelector((state) => state.contacts.filters);
     const dispatch = useDispatch();
 
     const handleChange = (evn) => {
-      // console.log("evn", evn.target.value);
+      console.log("evn", evn.target.value);
+      
       const selectNameFilter = evn.target.value;
-      // console.log("userFilter", userFilter);
+      
+      dispatch(changeFilter(selectNameFilter));
+      console.log("selectContact", selectContact);
+      
       const filtersAll = selectContact.filter((contact) =>
         contact.name
           .toLowerCase()
           .includes(evn.target.value.toLowerCase().trim())
       );
       // console.log("filtersAll", filtersAll);
-      dispatch(changeFilter(selectNameFilter));
-      return dispatch(selectContacts(filtersAll));
+      
+      dispatch(selectContacts(filtersAll));
   };
   
   return (

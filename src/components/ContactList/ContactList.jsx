@@ -11,12 +11,9 @@ export default function ContactList() {
   // console.log("userContact", userContact);
 
   function onHandleDelete(evn) {
-    // console.log("userContact", selectContact);
     //  перевірка введеного ID
     // console.log("id", evn);
-    const deleteUser = selectContact.filter((contact) => contact.id !== evn);
-    // console.log("deleteUser", deleteUser);
-    return dispatch(deleteContact(deleteUser));
+    return dispatch(deleteContact(evn));
    
   }
 

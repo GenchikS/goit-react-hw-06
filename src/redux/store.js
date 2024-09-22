@@ -1,6 +1,28 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { contactsRedus } from "./contactsSlice";
-import { filtersRedus } from "./filtersSlice";
+
+//  при використанні createSlice імпорт дефолтний
+import  contactsRedus from "./contactsSlice";
+import filtersRedus from "./filtersSlice";
+
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+
+const persistConfig = {
+  key: "user-contact",
+  storage,
+  whitelist: ["items"],
+};
+
+const persistedContactsReducer = persistReducer(persistConfig, contactsRedus);
+
+export const store = configureStore({
+  reducer: {
+    contacts: persistedContactsReducer,
+    filters: filtersRedus,
+  },
+});
+
+export const persistor = persistStore(store)
 
 
 //  після перенесо нам не потрібено
@@ -136,9 +158,3 @@ import { filtersRedus } from "./filtersSlice";
 // });
 
 
-export const store = configureStore({
-  reducer: {
-    contacts: contactsRedus,
-    filters: filtersRedus,
-  },
-});
