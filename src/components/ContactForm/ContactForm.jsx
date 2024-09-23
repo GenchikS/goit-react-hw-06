@@ -25,6 +25,7 @@ export default function ContactForm() {
   const dispatch = useDispatch();
   //  підписка на стан  useSelector
   const selectContact = useSelector((state) => state.contacts.items);
+  // console.log("selectContact", selectContact);
 
   const handleSubmit = (evn, actions) => {
     // console.log("submit.name", evn.name); //  перевірка значення name при submit
