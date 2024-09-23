@@ -1,4 +1,5 @@
-import { selectContacts } from "../../redux/contactsSlice";
+// import { selectContacts } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsSlice";
 import { changeFilter } from "../../redux/filtersSlice";
 import css from "./SearchBox.module.css";
 
@@ -6,25 +7,20 @@ import { useDispatch, useSelector } from "react-redux";
 
 
 export default function SearchBox() {
-    const selectContact = useSelector((state) => state.contacts.filters);
-    const dispatch = useDispatch();
-
-    const handleChange = (evn) => {
-      console.log("evn", evn.target.value);
-      
-      const selectNameFilter = evn.target.value;
-      
-      dispatch(changeFilter(selectNameFilter));
-      console.log("selectContact", selectContact);
-      
-      const filtersAll = selectContact.filter((contact) =>
-        contact.name
-          .toLowerCase()
-          .includes(evn.target.value.toLowerCase().trim())
-      );
-      // console.log("filtersAll", filtersAll);
-      
-      dispatch(selectContacts(filtersAll));
+  const dispatch = useDispatch();
+  const searchFilter  = useSelector((state) => state.filters.items);
+    
+  const handleChange = (evn) => {
+    // console.log("evn", evn.target.value);
+    // console.log("searchFilter", searchFilter);
+    const selectNameFilter = searchFilter.filter((contact) =>
+      contact.name.toLowerCase().includes(evn.target.value.toLowerCase())
+    );
+    // console.log("selectNameFilter", selectNameFilter);
+    //  dispatch введеного значання
+    dispatch(changeFilter(evn.target.value));
+    //  dispatch відфільтрованного масиву
+    return dispatch(addContact(selectNameFilter));
   };
   
   return (
