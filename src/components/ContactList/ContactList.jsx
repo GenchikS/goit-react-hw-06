@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 import Contact from "../ContactForm/Contact/Contact";
 import css from "./ContactList.module.css";
-// import { deleteContact } from "../../redux/contactsSlice";
 
 
 export default function ContactList() {
@@ -45,11 +44,3 @@ export default function ContactList() {
     </ul>
   );
 }
-
-
-// const selectNameFilter = searchFilter.filter((contact) =>
-//   contact.name.toLowerCase().includes(evn.target.value.toLowerCase())
-// );
-
-
-// dispatch(addContact(selectNameFilter));
